@@ -1,18 +1,23 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-
 
 const Login = () => {
     const router = useRouter();
     const baseURL = process.env.NEXT_PUBLIC_HOSTNAME + "register";
 
-    const submitHandler = async (data) => {
+    const [photo, setPhoto] = useState(null); // State to store the selected photo file
 
+    const handlePhotoChange = (event) => {
+        setPhoto(event.target.files[0]); // Set the selected photo file to state
+    };
+
+    const submitHandler = async (data) => {
         const requestBody = {
             email: data.email,
-            password: data.password
+            password: data.password,
+            photo: photo // Add the selected photo file to the request body
         }
 
         await axios
@@ -23,9 +28,9 @@ const Login = () => {
                 router.push('/');
             })
             .catch(function (error) {
+                console.log(error)
                 alert('Something went wrong...');
             });
-
     };
 
     return (
@@ -67,6 +72,21 @@ const Login = () => {
                             className="mt-1 p-2 w-full border rounded-md"
                         />
                     </div>
+                    <div className="mb-4">
+                        <label
+                            htmlFor="photo"
+                            className="block text-sm font-medium text-gray-600"
+                        >
+                            Photo
+                        </label>
+                        <input
+                            type="file"
+                            id="photo"
+                            name="photo"
+                            onChange={handlePhotoChange} // Handle photo selection
+                            className="mt-1 p-2 w-full border rounded-md"
+                        />
+                    </div>
                     <button
                         type="submit"
                         className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
@@ -80,4 +100,3 @@ const Login = () => {
 };
 
 export default Login;
-

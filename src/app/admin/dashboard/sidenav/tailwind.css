@@ -1,0 +1,24 @@
+/* tailwind.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Additional colors */
+@layer utilities {
+  .bg-primary {
+    background-color: #4f46e5; /* Primary color */
+  }
+  
+  .text-primary {
+    color: #4f46e5; /* Primary color */
+  }
+  
+  .bg-secondary {
+    background-color: #10b981; /* Secondary color */
+  }
+  
+  .text-secondary {
+    color: #10b981; /* Secondary color */
+  }
+}
